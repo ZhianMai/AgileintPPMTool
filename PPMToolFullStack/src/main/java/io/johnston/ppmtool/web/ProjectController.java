@@ -1,6 +1,7 @@
 package io.johnston.ppmtool.web;
 
 import io.johnston.ppmtool.domain.Project;
+import io.johnston.ppmtool.services.MapValidationErrorService;
 import io.johnston.ppmtool.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,40 +24,23 @@ public class ProjectController {
   @Autowired
   private ProjectService projectService;
 
+  @Autowired
+  private MapValidationErrorService mapValidationErrorService;
+
   @PostMapping("")
   // ResponseEntity<> is a type that allow us to have more control on JSON response
   // BindingResult is an error phase, an analysis of an obj.
   public ResponseEntity<?> CreateNewProject(@Valid @RequestBody Project project,
                                                   BindingResult result) {
-    // Returning a meaningful JSON obj can let frontend React work easier.
-    if (result.hasErrors()) {
-      // return new ResponseEntity<String>("Invalid Project object", HttpStatus.BAD_REQUEST);
-      // JSON pattern
-      // {
-      //    "field": "error message, value: ..."
-      // }
-      Map<String, String> errorMap = new HashMap<>();
+    ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationService(result);
 
-      for (FieldError error: result.getFieldErrors()) {
-        String message = error.getDefaultMessage();
-        Object rejectVal = error.getRejectedValue();
-        message += "; value: ";
-
-        if (rejectVal != null) {
-          message += rejectVal.toString();
-        } else {
-          message += "null";
-        }
-
-        errorMap.put(error.getField(), message);
-      }
-
-      return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
+    if (errorMap != null) {
+      return errorMap;
     }
 
     // Save request data to database
     Project project1 = projectService.saveOrUpdateProject(project);
 
-    return new ResponseEntity<Project>(project, HttpStatus.CREATED);
+    return new ResponseEntity<Project>(project1, HttpStatus.CREATED);
   }
 }
