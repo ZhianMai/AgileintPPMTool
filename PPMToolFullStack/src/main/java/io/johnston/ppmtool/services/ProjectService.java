@@ -29,10 +29,20 @@ public class ProjectService {
     Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
     if (project == null) {
+      // Using the old exception so far
       throw new ProjectIdException("Project ID '" + projectId + "' does not exist.");
     }
 
     return project;
   }
 
+  public Iterable<Project> findProjectByName(String projectName) {
+    Iterable<Project> projects = projectRepository.findByProjectName(projectName);
+
+    return projects;
+  }
+
+  public Iterable<Project> findAllProjects() {
+    return projectRepository.findAll();
+  }
 }

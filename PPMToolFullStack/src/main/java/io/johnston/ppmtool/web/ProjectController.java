@@ -49,4 +49,16 @@ public class ProjectController {
     return new ResponseEntity<Project>(project, HttpStatus.OK);
   }
 
+  @GetMapping("/name/{projectName}")
+  public ResponseEntity<?> getProjectByName(@PathVariable String projectName) {
+    Iterable<Project> projects = projectService.findProjectByName(projectName);
+
+    return new ResponseEntity<Iterable<Project>>(projects, HttpStatus.OK);
+  }
+
+  @GetMapping("/all")
+  public Iterable<Project> getAllProjects() {
+    // If no such project, return an empty JSON
+    return projectService.findAllProjects();
+  }
 }
