@@ -57,8 +57,16 @@ public class ProjectController {
   }
 
   @GetMapping("/all")
-  public Iterable<Project> getAllProjects() {
+  public ResponseEntity<?>  getAllProjects() {
     // If no such project, return an empty JSON
-    return projectService.findAllProjects();
+    Iterable<Project> projects = projectService.findAllProjects();
+
+    return new ResponseEntity<Iterable<Project>>(projects, HttpStatus.OK);
   }
+
+  // This implementation works as well
+  // public Iterable<Project> findAllProjects() {
+  //   return projectService.findAllProjects();
+  // }
+
 }

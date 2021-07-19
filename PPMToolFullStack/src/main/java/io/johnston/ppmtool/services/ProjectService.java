@@ -37,9 +37,7 @@ public class ProjectService {
   }
 
   public Iterable<Project> findProjectByName(String projectName) {
-    Iterable<Project> projects = projectRepository.findByProjectName(projectName);
-
-    return projects;
+    return projectRepository.findByProjectName(projectName);
   }
 
   public Iterable<Project> findAllProjects() {
