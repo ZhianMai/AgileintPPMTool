@@ -21,6 +21,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/project")
 public class ProjectController {
+
   @Autowired
   private ProjectService projectService;
 
@@ -43,4 +44,5 @@ public class ProjectController {
 
     return new ResponseEntity<Project>(project1, HttpStatus.CREATED);
   }
+
 }
