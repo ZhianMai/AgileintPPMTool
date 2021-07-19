@@ -1,4 +1,4 @@
-package io.johnston.ppmtool.services;
+package io.johnston.ppmtool.utils;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +9,8 @@ import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
 public class MapValidationErrorService {
-  public ResponseEntity<?> mapValidationService(BindingResult result) {
+  public static ResponseEntity<?> mapValidationService(BindingResult result) {
     // Returning a meaningful JSON obj can let frontend React work easier.
     if (result.hasErrors()) {
       // return new ResponseEntity<String>("Invalid Project object", HttpStatus.BAD_REQUEST);
