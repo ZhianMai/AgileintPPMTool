@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProject } from "../../actions/projectActions";
+import classnames from "classnames";
 
 class AddProject extends Component {
   constructor() {
@@ -63,7 +64,13 @@ class AddProject extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg "
+                      /*
+                       * class "form-control form-control-lg" is always render.
+                       * class "is-invalid" renders if has error.
+                       */
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.projectName,
+                      })}
                       placeholder="Project Name"
                       /* This field name must match the Spring project name! */
                       name="projectName"
@@ -72,20 +79,32 @@ class AddProject extends Component {
                       // onChange={this.onChange.bind(this)}
                       onChange={this.onChange}
                     />
-                    <p>{errors.projectName}</p>
+                    {/* <p>{errors.projectName}</p> */}
+                    {errors.projectName && (
+                      <div className="invalid-feedback">
+                        {errors.projectName}
+                      </div>
+                    )}
                   </div>
                   <br />
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.projectIdentifier,
+                      })}
                       placeholder="Unique Project ID"
                       /* This field name must match the Spring project name! */
                       name="projectIdentifier"
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
-                    <p>{errors.projectIdentifier}</p>
+                    {/* <p>{errors.projectIdentifier}</p> */}
+                    {errors.projectIdentifier && (
+                      <div className="invalid-feedback">
+                        {errors.projectIdentifier}
+                      </div>
+                    )}
                   </div>
                   {/*
                         <!-- disabled for Edit Only!! remove "disabled" for the Create operation -->
@@ -93,14 +112,21 @@ class AddProject extends Component {
                   <br />
                   <div className="form-group">
                     <textarea
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.description,
+                      })}
                       placeholder="Project Description"
                       /* This field name must match the Spring project name! */
                       name="description"
                       value={this.state.description}
                       onChange={this.onChange}
                     ></textarea>
-                    <p>{errors.description}</p>
+                    {/* <p>{errors.description}</p> */}
+                    {errors.description && (
+                      <div className="invalid-feedback">
+                        {errors.description}
+                      </div>
+                    )}
                   </div>
                   <br />
                   <h5>Start Date:</h5>
