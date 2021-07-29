@@ -13,10 +13,18 @@ class AddProject extends Component {
       description: "",
       start_date: "",
       end_date: "",
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  // Life cycle hooks
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange(e) {
@@ -41,6 +49,8 @@ class AddProject extends Component {
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
       <div>
         <div className="project">
@@ -62,6 +72,7 @@ class AddProject extends Component {
                       // onChange={this.onChange.bind(this)}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectName}</p>
                   </div>
                   <br />
                   <div className="form-group">
@@ -74,6 +85,7 @@ class AddProject extends Component {
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectIdentifier}</p>
                   </div>
                   {/*
                         <!-- disabled for Edit Only!! remove "disabled" for the Create operation -->
@@ -88,6 +100,7 @@ class AddProject extends Component {
                       value={this.state.description}
                       onChange={this.onChange}
                     ></textarea>
+                    <p>{errors.description}</p>
                   </div>
                   <br />
                   <h5>Start Date:</h5>
@@ -129,7 +142,12 @@ class AddProject extends Component {
 }
 
 AddProject.propTypes = {
-  createProject : PropTypes.func.isRequired
-}
+  createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+};
 
-export default connect(null, { createProject }) (AddProject);
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { createProject })(AddProject);
