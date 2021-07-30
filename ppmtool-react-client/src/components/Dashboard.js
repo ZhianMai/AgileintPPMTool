@@ -17,7 +17,7 @@ class Dashboard extends Component {
       description: "des. from Props",
     };
 
-    const projectList = this.props.project.projects;
+    const { projectList } = this.props.projectData;
 
     return (
       <div>
@@ -46,12 +46,12 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  project: PropTypes.object.isRequired,
+  projectData: PropTypes.object.isRequired,
   getProjects: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  project: state.project,
+  projectData: state.projectData,
 });
 
 export default connect(mapStateToProps, { getProjects })(Dashboard);

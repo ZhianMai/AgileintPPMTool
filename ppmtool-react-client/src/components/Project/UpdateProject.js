@@ -1,15 +1,23 @@
 import React, { Component } from "react";
+import { getProject } from "../../actions/projectActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import classnames from "classnames";
 
-export default class UpdateProject extends Component {
+class UpdateProject extends Component {
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    // console.log(id);
+    this.props.getProject(id, this.props.history);
+  }
+
   render() {
     return (
       <div className="project">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h5 className="display-4 text-center">
-                Create / Edit Project form
-              </h5>
+              <h5 className="display-4 text-center">Update Project form</h5>
               <hr />
               <br />
               <form>
@@ -67,3 +75,14 @@ export default class UpdateProject extends Component {
     );
   }
 }
+
+UpdateProject.propTypes = {
+  getProject: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
+};
+
+const mapStatetoProps = (state) => ({
+  project: state.projectData.project,
+});
+
+export default connect(mapStatetoProps, { getProject })(UpdateProject);
