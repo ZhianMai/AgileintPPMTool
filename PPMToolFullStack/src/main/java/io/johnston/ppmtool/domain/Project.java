@@ -29,6 +29,11 @@ public class Project {
   private Date created_At;
   @JsonFormat(pattern = "yyyy-mm-dd")
   private Date updated_At;
+  @OneToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL, // Once delete project, delete backlog
+            mappedBy = "project")
+  private Backlog backlog;
+
 
   @PrePersist
   // Call this function before an entity is created.
@@ -106,6 +111,14 @@ public class Project {
 
   public void setUpdated_At(Date updated_At) {
     this.updated_At = updated_At;
+  }
+
+  public Backlog getBacklog() {
+    return backlog;
+  }
+
+  public void setBacklog(Backlog backlog) {
+    this.backlog = backlog;
   }
 
   @Override

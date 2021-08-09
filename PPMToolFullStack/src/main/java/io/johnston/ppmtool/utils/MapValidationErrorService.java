@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapValidationErrorService {
+
   public static ResponseEntity<?> mapValidationService(BindingResult result) {
     // Returning a meaningful JSON obj can let frontend React work easier.
     if (result.hasErrors()) {
