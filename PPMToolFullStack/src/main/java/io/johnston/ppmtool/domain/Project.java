@@ -1,6 +1,7 @@
 package io.johnston.ppmtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -32,6 +33,7 @@ public class Project {
   @OneToOne(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL, // Once delete project, delete backlog
             mappedBy = "project")
+  @JsonIgnore // get project by id will ignore the backlog
   private Backlog backlog;
 
 
