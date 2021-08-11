@@ -1,5 +1,6 @@
 package io.johnston.ppmtool.web;
 
+import io.johnston.ppmtool.domain.Project;
 import io.johnston.ppmtool.domain.ProjectTask;
 import io.johnston.ppmtool.services.ProjectTaskService;
 import io.johnston.ppmtool.utils.MapValidationErrorService;
@@ -49,5 +50,23 @@ public class BacklogController {
         projectTaskService.findProjectTaskByProjectSequence(backlog_id, projectTask_id);
 
     return new ResponseEntity<ProjectTask>(projectTask, HttpStatus.OK);
+  }
+
+  @PatchMapping("/{backlog_id}/{projectTask_id}")
+  public ResponseEntity<?> updateProjectTask(@Valid @RequestBody ProjectTask updatedProjectTask,
+                                             BindingResult result,
+                                             @PathVariable String backlog_id,
+                                             @PathVariable String projectTask_id) {
+
+    ResponseEntity<?> errorMap = MapValidationErrorService.mapValidationService(result);
+
+    if (errorMap != null) {
+      return errorMap;
+    }
+
+    ProjectTask updatedTask =
+        projectTaskService.updateByProjectSequence(updatedProjectTask, backlog_id, projectTask_id);
+
+    return new ResponseEntity<ProjectTask>(updatedTask, HttpStatus.OK);
   }
 }

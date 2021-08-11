@@ -91,4 +91,12 @@ public class ProjectTaskService {
 
     return projectTask;
   }
+
+  public ProjectTask updateByProjectSequence(ProjectTask updatedProjectTask,
+                                             String backlog_id, String projectTask_id) {
+    // For validation project_id and projectTask_id, so ignore return value
+    findProjectTaskByProjectSequence(backlog_id, projectTask_id);
+    // Update project task
+    return projectTaskRepository.save(updatedProjectTask);
+  }
 }
