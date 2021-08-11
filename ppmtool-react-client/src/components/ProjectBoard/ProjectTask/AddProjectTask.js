@@ -1,7 +1,30 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import classnames from "classnames";
+import { addProjectTask } from "../../../actions/backlogActions";
+import PropTypes from "prop-types";
 
 class AddProjectTask extends Component {
+  constructor(props) {
+    super(props);
+
+    const { id } = this.props.match.params;
+
+    this.state = {
+      summary: "",
+      acceptanceCriteria: "",
+      status: "",
+      priority: 0,
+      dueDate: "",
+      projectIdentifier: id,
+      errors: {},
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
   render() {
     const { id } = this.props.match.params;
 
@@ -15,13 +38,15 @@ class AddProjectTask extends Component {
               </Link>
               <h4 className="display-4 text-center">Add Project Task</h4>
               <p className="lead text-center">Project Name + Project Code</p>
-              <form>
+              <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
                     className="form-control form-control-lg"
                     name="summary"
                     placeholder="Project Task summary"
+                    value={this.state.summary}
+                    onChange={this.onChange}
                   />
                 </div>
                 <div className="form-group">
@@ -29,6 +54,8 @@ class AddProjectTask extends Component {
                     className="form-control form-control-lg"
                     placeholder="Acceptance Criteria"
                     name="acceptanceCriteria"
+                    value={this.state.acceptanceCriteria}
+                    onChange={this.onChange}
                   ></textarea>
                 </div>
                 <h6>Due Date</h6>
@@ -37,12 +64,16 @@ class AddProjectTask extends Component {
                     type="date"
                     className="form-control form-control-lg"
                     name="dueDate"
+                    value={this.state.dueDate}
+                    onChange={this.onChange}
                   />
                 </div>
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
                     name="priority"
+                    value={this.state.priority}
+                    onChange={this.onChange}
                   >
                     <option value={0}>Select Priority</option>
                     <option value={1}>High</option>
@@ -55,6 +86,8 @@ class AddProjectTask extends Component {
                   <select
                     className="form-control form-control-lg"
                     name="status"
+                    value={this.state.status}
+                    onChange={this.onChange}
                   >
                     <option value="">Select Status</option>
                     <option value="TO_DO">TO DO</option>
@@ -74,6 +107,35 @@ class AddProjectTask extends Component {
       </div>
     );
   }
+
+  // onchange
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+  // onsubmit
+  onSubmit(e) {
+    e.preventDefault();
+
+    const newTask = {
+      summary: this.state.summary,
+      acceptanceCriteria: this.state.acceptanceCriteria,
+      status: this.state.status,
+      priority: this.state.priority,
+      dueDate: this.state.dueDate,
+    };
+
+    this.props.addProjectTask(
+      this.state.projectIdentifier,
+      newTask,
+      this.props.history
+    );
+
+    console.log(newTask);
+  }
 }
 
-export default AddProjectTask;
+AddProjectTask.propTypes = {
+  addProjectTask: PropTypes.func.isRequired,
+};
+
+export default connect(null, { addProjectTask })(AddProjectTask);
