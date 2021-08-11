@@ -108,7 +108,7 @@ public class ProjectTaskService {
     List<ProjectTask> projectTaskList = backlog.getProjectTaskList();
     projectTaskList.remove(projectTask);
     backlogRepository.save(backlog);
-    
+
      */
 
     projectTaskRepository.delete(projectTask);
