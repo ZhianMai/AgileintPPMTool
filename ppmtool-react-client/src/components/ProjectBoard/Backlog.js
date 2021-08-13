@@ -9,20 +9,20 @@ class Backlog extends Component {
       <ProjectTask key={project_task.id} project_task={project_task} />
     ));
 
-    let todoTaskList = [];
-    let inProgressTaskList = [];
-    let doneTaskList = [];
+    let todoItems = [];
+    let inProgressItems = [];
+    let doneItems = [];
 
-    tasks.forEach((project_task) => {
-      switch (project_task.props.project_task.status) {
+    tasks.forEach((task) => {
+      switch (task.props.project_task.status) {
         case "TO_DO":
-          todoTaskList.push(project_task);
+          todoItems.push(task);
           break;
         case "IN_PROGRESS":
-          inProgressTaskList.push(project_task);
+          inProgressItems.push(task);
           break;
         case "DONE":
-          doneTaskList.push(project_task);
+          doneItems.push(task);
           break;
       }
     });
@@ -36,7 +36,7 @@ class Backlog extends Component {
                 <h3>TO DO</h3>
               </div>
             </div>
-            {todoTaskList}
+            {todoItems}
             {
               // insert tasks here
             }
@@ -47,11 +47,7 @@ class Backlog extends Component {
                 <h3>In Progress</h3>
               </div>
             </div>
-            {inProgressTaskList}
-            {
-              //  <!-- SAMPLE PROJECT TASK STARTS HERE -->
-              //         <!-- SAMPLE PROJECT TASK ENDS HERE -->
-            }
+            {inProgressItems}
           </div>
           <div className="col-md-4">
             <div className="card text-center mb-2">
@@ -59,11 +55,7 @@ class Backlog extends Component {
                 <h3>Done</h3>
               </div>
             </div>
-            {doneTaskList}
-            {
-              // <!-- SAMPLE PROJECT TASK STARTS HERE -->
-              // <!-- SAMPLE PROJECT TASK ENDS HERE -->
-            }
+            {doneItems}
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class ProjectTask extends Component {
   render() {
@@ -6,19 +7,19 @@ class ProjectTask extends Component {
     let priorityString;
     let priorityClass;
 
-    switch (project_task.priority) {
-      case 1:
-        priorityClass = "bg-danger text-light";
-        priorityString = "HIGH";
-        break;
-      case 2:
-        priorityClass = "bg-warning text-light";
-        priorityString = "MEDIUM";
-        break;
-      case 3:
-        priorityClass = "bg-info text-light";
-        priorityString = "LOW";
-        break;
+    if (project_task.priority === 1) {
+      priorityClass = "bg-danger text-light";
+      priorityString = "HIGH";
+    }
+
+    if (project_task.priority === 2) {
+      priorityClass = "bg-warning text-light";
+      priorityString = "MEDIUM";
+    }
+
+    if (project_task.priority === 3) {
+      priorityClass = "bg-info text-light";
+      priorityString = "LOW";
     }
 
     return (
@@ -31,9 +32,14 @@ class ProjectTask extends Component {
           <p className="card-text text-truncate ">
             {project_task.acceptanceCriteria}
           </p>
-          <a href="" className="btn btn-primary">
+          <Link
+            to={`/updateProjectTask/${project_task.projectIdentifier}/${
+              project_task.projectSequence
+            }`}
+            className="btn btn-primary"
+          >
             View / Update
-          </a>
+          </Link>
 
           <button className="btn btn-danger ml-4">Delete</button>
         </div>
