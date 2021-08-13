@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import ProjectTask from "./ProjectTasks/ProjectTask";
+import ProjectTask from "./ProjectTask/ProjectTask";
 
 class Backlog extends Component {
   render() {
-    const { project_tasks_prop } = this.props;
+    const { project_taskList_prop } = this.props;
 
-    const tasks = project_tasks_prop.map(project_task => (
+    const tasks = project_taskList_prop.map((project_task) => (
       <ProjectTask key={project_task.id} project_task={project_task} />
     ));
 

@@ -31,14 +31,11 @@ class ProjectBoard extends Component {
 
 ProjectBoard.propTypes = {
   backlog: PropTypes.object.isRequired,
-  getBacklog: PropTypes.func.isRequired
+  getBacklog: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  backlog: state.backlog
+const mapStateToProps = (state) => ({
+  backlog: state.backlog,
 });
 
-export default connect(
-  mapStateToProps,
-  { getBacklog }
-)(ProjectBoard);
+export default connect(mapStateToProps, { getBacklog })(ProjectBoard);

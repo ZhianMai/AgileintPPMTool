@@ -21,7 +21,7 @@ class AddProject extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  //life cycle hooks
+  // Life cycle hooks
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
@@ -29,11 +29,14 @@ class AddProject extends Component {
   }
 
   onChange(e) {
+    // this.setState({ projectName: e.target.value });
     this.setState({ [e.target.name]: e.target.value });
   }
 
   onSubmit(e) {
+    // Prevent refreshing the page.
     e.preventDefault();
+
     const newProject = {
       projectName: this.state.projectName,
       projectIdentifier: this.state.projectIdentifier,
@@ -41,6 +44,8 @@ class AddProject extends Component {
       start_date: this.state.start_date,
       end_date: this.state.end_date,
     };
+
+    // console.log(newProject);
     this.props.createProject(newProject, this.props.history);
   }
 
@@ -59,21 +64,29 @@ class AddProject extends Component {
                   <div className="form-group">
                     <input
                       type="text"
+                      /*
+                       * class "form-control form-control-lg" is always render.
+                       * class "is-invalid" renders if has error.
+                       */
                       className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.projectName,
                       })}
                       placeholder="Project Name"
+                      /* This field name must match the Spring project name! */
                       name="projectName"
-                      value={this.state.projectName}
+                      value={this.setState.projectName}
+                      // No need to write this since binding done in ctor
+                      // onChange={this.onChange.bind(this)}
                       onChange={this.onChange}
                     />
+                    {/* <p>{errors.projectName}</p> */}
                     {errors.projectName && (
                       <div className="invalid-feedback">
                         {errors.projectName}
                       </div>
                     )}
-                    <br />
                   </div>
+                  <br />
                   <div className="form-group">
                     <input
                       type="text"
@@ -81,50 +94,59 @@ class AddProject extends Component {
                         "is-invalid": errors.projectIdentifier,
                       })}
                       placeholder="Unique Project ID"
+                      /* This field name must match the Spring project name! */
                       name="projectIdentifier"
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
+                    {/* <p>{errors.projectIdentifier}</p> */}
                     {errors.projectIdentifier && (
                       <div className="invalid-feedback">
                         {errors.projectIdentifier}
                       </div>
                     )}
-                    <br />
                   </div>
+                  {/*
+                        <!-- disabled for Edit Only!! remove "disabled" for the Create operation -->
+                        */}
+                  <br />
                   <div className="form-group">
                     <textarea
                       className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.description,
                       })}
                       placeholder="Project Description"
+                      /* This field name must match the Spring project name! */
                       name="description"
                       value={this.state.description}
                       onChange={this.onChange}
-                    />
+                    ></textarea>
+                    {/* <p>{errors.description}</p> */}
                     {errors.description && (
                       <div className="invalid-feedback">
                         {errors.description}
                       </div>
                     )}
-                    <br />
                   </div>
-                  <h6>Start Date</h6>
+                  <br />
+                  <h5>Start Date:</h5>
                   <div className="form-group">
                     <input
                       type="date"
                       className="form-control form-control-lg"
+                      /* This field name must match the Spring project name! */
                       name="start_date"
                       value={this.state.start_date}
                       onChange={this.onChange}
                     />
-                    <br />
                   </div>
-                  <h6>Estimated End Date</h6>
+                  <br />
+                  <h5>Estimated End Date:</h5>
                   <div className="form-group">
                     <input
                       type="date"
                       className="form-control form-control-lg"
+                      /* This field name must match the Spring project name! */
                       name="end_date"
                       value={this.state.end_date}
                       onChange={this.onChange}

@@ -2,17 +2,20 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 
-const initalState = {};
+const initialState = {};
 const middleware = [thunk];
 
 let store;
 
+// Set up copatibility to fit all browers
 if (window.navigator.userAgent.includes("Chrome")) {
   store = createStore(
     rootReducer,
-    initalState,
+    initialState,
     compose(
       applyMiddleware(...middleware),
+      // This middleware is for Chrome redux extension
+      // only.
       window.__REDUX_DEVTOOLS_EXTENSION__ &&
         window.__REDUX_DEVTOOLS_EXTENSION__()
     )
@@ -20,7 +23,7 @@ if (window.navigator.userAgent.includes("Chrome")) {
 } else {
   store = createStore(
     rootReducer,
-    initalState,
+    initialState,
     compose(applyMiddleware(...middleware))
   );
 }
