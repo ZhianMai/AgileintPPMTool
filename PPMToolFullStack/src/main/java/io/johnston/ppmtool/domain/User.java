@@ -20,7 +20,7 @@ public class User {
   private String fullName;
   @NotBlank(message = "Password field is required")
   private String password;
-  @Transient
+  @Transient // Ignore confirmPassword field in the DB.
   private String confirmPassword;
   private Date create_At;
   private Date update_At;
