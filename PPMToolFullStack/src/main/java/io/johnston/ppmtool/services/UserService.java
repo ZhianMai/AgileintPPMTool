@@ -23,7 +23,10 @@ public class UserService {
       newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
 
       newUser.setUsername(newUser.getUsername());
-
+      // Set confirmPassword to empty to avoid returning the real password back.
+      // Cannot @JsonIgnore on confirmPassword, since ignore before validation
+      // It's always not match since confirmPassowrd is null.
+      newUser.setConfirmPassword("");
       return userRepository.save(newUser);
     } catch (Exception e) {
       throw new UsernameAlreadyExistsException("Username: " + newUser.getUsername() + " already exists");

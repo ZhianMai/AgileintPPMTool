@@ -3,6 +3,7 @@ package io.johnston.ppmtool.web;
 import io.johnston.ppmtool.domain.User;
 import io.johnston.ppmtool.services.UserService;
 import io.johnston.ppmtool.utils.MapValidationErrorService;
+import io.johnston.ppmtool.validator.Uservalidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,13 @@ public class UserController {
   @Autowired
   UserService userService;
 
+  @Autowired
+  private Uservalidator uservalidator;
+
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
+    uservalidator.validate(user, result);
+
     ResponseEntity<?> errorMap = MapValidationErrorService.mapValidationService(result);
 
     if (errorMap != null) {
