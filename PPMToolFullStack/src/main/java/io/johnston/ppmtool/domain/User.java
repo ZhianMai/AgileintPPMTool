@@ -1,11 +1,17 @@
 package io.johnston.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 import java.util.Date;
 
-public class User {
+@Entity
+public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +55,40 @@ public class User {
 
   public String getUsername() {
     return username;
+  }
+
+  @Override
+  @JsonIgnore
+  public boolean isAccountNonExpired() {
+    // Need logic to check if account expired.
+    // Not doing usr management here.
+    return true;
+  }
+
+  // Adding @JsonIgnore here to avoid returning security info
+
+  @Override
+  @JsonIgnore
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  @JsonIgnore
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  @JsonIgnore
+  public boolean isEnabled() {
+    return true;
+  }
+
+  @Override
+  @JsonIgnore
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return null;
   }
 
   public void setUsername(String username) {
