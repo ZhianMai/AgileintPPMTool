@@ -1,8 +1,7 @@
 package io.johnston.ppmtool.security;
 
 import io.johnston.ppmtool.domain.User;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +34,33 @@ public class JwtTokenProvider {
         .signWith(SignatureAlgorithm.HS512, SECRET)
         .compact();
   }
+
   // Validate token
+  public boolean validateToken(String token) {
+    try {
+      Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
+
+      return true;
+    } catch (SignatureException exception) {
+      System.out.println("Invalid JWT Signature");
+    } catch (MalformedJwtException exception) {
+      System.out.println("Invalid JWT token.");
+    } catch (ExpiredJwtException exception) {
+      System.out.println("Expired JWT token.");
+    } catch (UnsupportedJwtException exception) {
+      System.out.println("Unsupported JWT token.");
+    } catch (IllegalArgumentException exception) {
+      System.out.println("JWT string is empty.");
+    }
+
+    return false;
+  }
 
   // Get user id from token
+  public Long getUserIdFromJWT(String token) {
+    Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
+    String id = (String)claims.get("id");
+
+    return Long.parseLong(id);
+  }
 }
