@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/project")
@@ -23,7 +24,8 @@ public class ProjectController {
   // ResponseEntity<> is a type that allow us to have more control on JSON response
   // BindingResult is an error phase, an analysis of an obj.
   public ResponseEntity<?> CreateNewProject(@Valid @RequestBody Project project,
-                                                  BindingResult result) {
+                                            BindingResult result,
+                                            Principal principal) {
     ResponseEntity<?> errorMap = MapValidationErrorService.mapValidationService(result);
 
     if (errorMap != null) {
@@ -31,7 +33,8 @@ public class ProjectController {
     }
 
     // Save request data to database
-    Project project1 = projectService.saveOrUpdateProject(project);
+    // Set user-project relationship
+    Project project1 = projectService.saveOrUpdateProject(project, principal.getName());
 
     return new ResponseEntity<Project>(project1, HttpStatus.CREATED);
   }

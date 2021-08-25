@@ -7,8 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
@@ -42,6 +44,9 @@ public class User implements UserDetails {
   }
 
   // One-to-many with project
+  @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+  private List<Project> projectList = new ArrayList<>();
+
   public User() {
   }
 
@@ -133,5 +138,13 @@ public class User implements UserDetails {
 
   public void setUpdate_At(Date update_At) {
     this.update_At = update_At;
+  }
+
+  public List<Project> getProjectList() {
+    return projectList;
+  }
+
+  public void setProjectList(List<Project> projectList) {
+    this.projectList = projectList;
   }
 }

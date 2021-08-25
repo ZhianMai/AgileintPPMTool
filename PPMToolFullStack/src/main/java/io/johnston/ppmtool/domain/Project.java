@@ -36,6 +36,11 @@ public class Project {
   @JsonIgnore // get project by id will ignore the backlog
   private Backlog backlog;
 
+  @ManyToOne(fetch = FetchType.LAZY) // When lading project no need to load user profile
+  @JsonIgnore
+  private User user;
+
+  private String projectLeader;
 
   @PrePersist
   // Call this function before an entity is created.
@@ -121,6 +126,22 @@ public class Project {
 
   public void setBacklog(Backlog backlog) {
     this.backlog = backlog;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public String getProjectLeader() {
+    return projectLeader;
+  }
+
+  public void setProjectLeader(String projectLeader) {
+    this.projectLeader = projectLeader;
   }
 
   @Override
