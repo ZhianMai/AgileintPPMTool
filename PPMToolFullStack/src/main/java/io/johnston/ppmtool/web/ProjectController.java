@@ -40,8 +40,8 @@ public class ProjectController {
   }
 
   @GetMapping("/{projectId}")
-  public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
-    Project project = projectService.findProjectByIdentifier(projectId);
+  public ResponseEntity<?> getProjectById(@PathVariable String projectId, Principal principal) {
+    Project project = projectService.findProjectByIdentifier(projectId, principal.getName());
 
     return new ResponseEntity<Project>(project, HttpStatus.OK);
   }
@@ -54,9 +54,9 @@ public class ProjectController {
   }
 
   @GetMapping("/all")
-  public ResponseEntity<?>  getAllProjects() {
+  public ResponseEntity<?>  getAllProjects(Principal principal) {
     // If no such project, return an empty JSON
-    Iterable<Project> projects = projectService.findAllProjects();
+    Iterable<Project> projects = projectService.findAllProjects(principal.getName());
 
     return new ResponseEntity<Iterable<Project>>(projects, HttpStatus.OK);
   }
@@ -67,8 +67,8 @@ public class ProjectController {
   // }
 
   @DeleteMapping("/{projectId}")
-  public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
-    projectService.deleteProjectByIdentifier(projectId);
+  public ResponseEntity<?> deleteProject(@PathVariable String projectId, Principal principal) {
+    projectService.deleteProjectByIdentifier(projectId, principal.getName());
     String responseMessage = "Project with ID '" + projectId + "' deleted";
 
     return new ResponseEntity<String>(responseMessage, HttpStatus.OK);

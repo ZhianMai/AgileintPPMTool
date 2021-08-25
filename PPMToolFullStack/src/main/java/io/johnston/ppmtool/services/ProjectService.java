@@ -4,6 +4,7 @@ import io.johnston.ppmtool.domain.Backlog;
 import io.johnston.ppmtool.domain.Project;
 import io.johnston.ppmtool.domain.User;
 import io.johnston.ppmtool.exceptions.ProjectIdException;
+import io.johnston.ppmtool.exceptions.ProjectNotFoundException;
 import io.johnston.ppmtool.repositories.BacklogRepository;
 import io.johnston.ppmtool.repositories.ProjectRepository;
 import io.johnston.ppmtool.repositories.UserRepository;
@@ -52,12 +53,16 @@ public class ProjectService {
     }
   }
 
-  public Project findProjectByIdentifier(String projectId) {
+  public Project findProjectByIdentifier(String projectId, String username) {
     Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
     if (project == null) {
       // Using the old exception so far
       throw new ProjectIdException("Project ID '" + projectId + "' does not exist.");
+    }
+
+    if (!project.getProjectLeader().equals(username)) {
+      throw new ProjectNotFoundException("Project not found in your account.");
     }
 
     return project;
@@ -67,11 +72,13 @@ public class ProjectService {
     return projectRepository.findByProjectName(projectName);
   }
 
-  public Iterable<Project> findAllProjects() {
-    return projectRepository.findAll();
+  public Iterable<Project> findAllProjects(String username) {
+    return projectRepository.findAllByProjectLeader(username);
   }
 
-  public void deleteProjectByIdentifier(String projectId) {
+  public void deleteProjectByIdentifier(String projectId, String username) {
+    /*
+    // Redundant code before using JWT
     Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
     if (project == null) {
@@ -79,7 +86,9 @@ public class ProjectService {
       throw new ProjectIdException("Cannot delete project with ID '" + projectId +
           "': does not exist.");
     }
+    */
 
-    projectRepository.delete(project);
+
+    projectRepository.delete(findProjectByIdentifier(projectId, username));
   }
 }
