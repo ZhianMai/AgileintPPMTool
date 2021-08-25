@@ -41,7 +41,8 @@ public class UserController {
   private AuthenticationManager authenticationManager;
 
   @PostMapping("/login")
-  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
+  public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest,
+                                            BindingResult result) {
     ResponseEntity<?> errorMap = MapValidationErrorService.mapValidationService(result);
 
     if (errorMap != null) {

@@ -26,6 +26,11 @@ public class ProjectService {
   private UserRepository userRepository;
 
   public Project saveOrUpdateProject(Project project, String username) {
+    if (project.getId() != null) {
+      Project existingProject =
+          projectRepository.findByProjectIdentifier(project.getProjectIdentifier());
+    }
+
     String tempProjectIdentifier = project.getProjectIdentifier().toUpperCase();
 
     try {

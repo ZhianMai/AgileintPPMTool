@@ -44,7 +44,8 @@ public class User implements UserDetails {
   }
 
   // One-to-many with project
-  @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
+  @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER,
+             mappedBy = "user", orphanRemoval = true)
   private List<Project> projectList = new ArrayList<>();
 
   public User() {
