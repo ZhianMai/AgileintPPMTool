@@ -98,12 +98,6 @@ class UpdateProjectTask extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <Link
-                to={`/projectBoard/${this.state.projectIdentifier}`}
-                className="btn btn-light"
-              >
-                Back to Project Board
-              </Link>
               <h4 className="display-4 text-center">Update Project Task</h4>
               <p className="lead text-center">
                 Project Name: {this.state.projectIdentifier} | Project Task ID:{" "}
@@ -125,6 +119,7 @@ class UpdateProjectTask extends Component {
                     <div className="invalid-feedback">{errors.summary}</div>
                   )}
                 </div>
+                <br />
                 <div className="form-group">
                   <textarea
                     className="form-control form-control-lg"
@@ -134,6 +129,7 @@ class UpdateProjectTask extends Component {
                     onChange={this.onChange}
                   />
                 </div>
+                <br />
                 <h6>Due Date</h6>
                 <div className="form-group">
                   <input
@@ -144,6 +140,7 @@ class UpdateProjectTask extends Component {
                     onChange={this.onChange}
                   />
                 </div>
+                <br />
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
@@ -157,7 +154,7 @@ class UpdateProjectTask extends Component {
                     <option value={3}>Low</option>
                   </select>
                 </div>
-
+                <br />
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
@@ -176,6 +173,13 @@ class UpdateProjectTask extends Component {
                   type="submit"
                   className="btn btn-primary btn-block mt-4"
                 />
+                <i>&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                <Link
+                  to={`/projectBoard/${this.state.projectIdentifier}`}
+                  className="btn btn-primary btn-light mt-4"
+                >
+                  Cancel
+                </Link>
               </form>
             </div>
           </div>

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProject } from "../../actions/projectActions";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 class AddProject extends Component {
   constructor() {
@@ -14,7 +15,7 @@ class AddProject extends Component {
       description: "",
       start_date: "",
       end_date: "",
-      errors: {}
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -39,7 +40,7 @@ class AddProject extends Component {
       projectIdentifier: this.state.projectIdentifier,
       description: this.state.description,
       start_date: this.state.start_date,
-      end_date: this.state.end_date
+      end_date: this.state.end_date,
     };
     this.props.createProject(newProject, this.props.history);
   }
@@ -53,14 +54,14 @@ class AddProject extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-8 m-auto">
-                <h5 className="display-4 text-center">Create Project form</h5>
+                <h5 className="display-4 text-center">Create Project</h5>
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
                       type="text"
                       className={classnames("form-control form-control-lg", {
-                        "is-invalid": errors.projectName
+                        "is-invalid": errors.projectName,
                       })}
                       placeholder="Project Name"
                       name="projectName"
@@ -73,13 +74,14 @@ class AddProject extends Component {
                       </div>
                     )}
                   </div>
+                  <br />
                   <div className="form-group">
                     <input
                       type="text"
                       className={classnames("form-control form-control-lg", {
-                        "is-invalid": errors.projectIdentifier
+                        "is-invalid": errors.projectIdentifier,
                       })}
-                      placeholder="Unique Project ID"
+                      placeholder="Unique Project ID, 4 to 5 characters long."
                       name="projectIdentifier"
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
@@ -90,10 +92,11 @@ class AddProject extends Component {
                       </div>
                     )}
                   </div>
+                  <br />
                   <div className="form-group">
                     <textarea
                       className={classnames("form-control form-control-lg", {
-                        "is-invalid": errors.description
+                        "is-invalid": errors.description,
                       })}
                       placeholder="Project Description"
                       name="description"
@@ -106,6 +109,7 @@ class AddProject extends Component {
                       </div>
                     )}
                   </div>
+                  <br />
                   <h6>Start Date</h6>
                   <div className="form-group">
                     <input
@@ -116,6 +120,7 @@ class AddProject extends Component {
                       onChange={this.onChange}
                     />
                   </div>
+                  <br />
                   <h6>Estimated End Date</h6>
                   <div className="form-group">
                     <input
@@ -131,6 +136,14 @@ class AddProject extends Component {
                     type="submit"
                     className="btn btn-primary btn-block mt-4"
                   />
+
+                  <i>&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                  <Link
+                    to={`/dashboard/`}
+                    className="btn btn-primary btn-light mt-4"
+                  >
+                    Cancel
+                  </Link>
                 </form>
               </div>
             </div>
@@ -143,14 +156,11 @@ class AddProject extends Component {
 
 AddProject.propTypes = {
   createProject: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  errors: state.errors
+const mapStateToProps = (state) => ({
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { createProject }
-)(AddProject);
+export default connect(mapStateToProps, { createProject })(AddProject);

@@ -16,7 +16,7 @@ public class Project {
   @NotBlank(message = "Project name cannot be blank.")
   private String projectName;
   @NotBlank(message = "Project identifier cannot be blank.")
-  @Size(min = 4, max = 5, message = "Input between 4 to 5 chars.")
+  @Size(min = 4, max = 5, message = "Input between 4 to 10 chars.")
   @Column(updatable = false, unique = true)
   private String projectIdentifier;
   @NotBlank(message = "Project description cannot be blank.")

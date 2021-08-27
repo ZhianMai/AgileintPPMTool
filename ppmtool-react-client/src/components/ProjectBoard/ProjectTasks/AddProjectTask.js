@@ -17,7 +17,7 @@ class AddProjectTask extends Component {
       priority: 0,
       dueDate: "",
       projectIdentifier: id,
-      errors: {}
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -42,7 +42,7 @@ class AddProjectTask extends Component {
       acceptanceCriteria: this.state.acceptanceCriteria,
       status: this.state.status,
       priority: this.state.priority,
-      dueDate: this.state.dueDate
+      dueDate: this.state.dueDate,
     };
     this.props.addProjectTask(
       this.state.projectIdentifier,
@@ -59,17 +59,14 @@ class AddProjectTask extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <Link to={`/projectBoard/${id}`} className="btn btn-light">
-                Back to Project Board
-              </Link>
-              <h4 className="display-4 text-center">Add Project Task</h4>
+              <h4 className="display-6 text-center">Add Project Task</h4>
               <p className="lead text-center">Project Name + Project Code</p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.summary
+                      "is-invalid": errors.summary,
                     })}
                     name="summary"
                     placeholder="Project Task summary"
@@ -80,6 +77,7 @@ class AddProjectTask extends Component {
                     <div className="invalid-feedback">{errors.summary}</div>
                   )}
                 </div>
+                <br />
                 <div className="form-group">
                   <textarea
                     className="form-control form-control-lg"
@@ -89,6 +87,7 @@ class AddProjectTask extends Component {
                     onChange={this.onChange}
                   />
                 </div>
+                <br />
                 <h6>Due Date</h6>
                 <div className="form-group">
                   <input
@@ -99,6 +98,7 @@ class AddProjectTask extends Component {
                     onChange={this.onChange}
                   />
                 </div>
+                <br />
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
@@ -112,7 +112,7 @@ class AddProjectTask extends Component {
                     <option value={3}>Low</option>
                   </select>
                 </div>
-
+                <br />
                 <div className="form-group">
                   <select
                     className="form-control form-control-lg"
@@ -131,6 +131,13 @@ class AddProjectTask extends Component {
                   type="submit"
                   className="btn btn-primary btn-block mt-4"
                 />
+                <i>&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                <Link
+                  to={`/projectBoard/${id}`}
+                  className="btn btn-primary btn-light mt-4"
+                >
+                  Cancel
+                </Link>
               </form>
             </div>
           </div>
@@ -142,14 +149,11 @@ class AddProjectTask extends Component {
 
 AddProjectTask.propTypes = {
   addProjectTask: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  errors: state.errors
+const mapStateToProps = (state) => ({
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { addProjectTask }
-)(AddProjectTask);
+export default connect(mapStateToProps, { addProjectTask })(AddProjectTask);

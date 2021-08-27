@@ -3,6 +3,7 @@ import { getProject, createProject } from "../../actions/projectActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
 
 class UpdateProject extends Component {
   //set state
@@ -16,7 +17,7 @@ class UpdateProject extends Component {
       description: "",
       start_date: "",
       end_date: "",
-      errors: {}
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -32,7 +33,7 @@ class UpdateProject extends Component {
       projectIdentifier,
       description,
       start_date,
-      end_date
+      end_date,
     } = nextProps.project;
 
     this.setState({
@@ -41,7 +42,7 @@ class UpdateProject extends Component {
       projectIdentifier,
       description,
       start_date,
-      end_date
+      end_date,
     });
   }
 
@@ -63,7 +64,7 @@ class UpdateProject extends Component {
       projectIdentifier: this.state.projectIdentifier,
       description: this.state.description,
       start_date: this.state.start_date,
-      end_date: this.state.end_date
+      end_date: this.state.end_date,
     };
 
     this.props.createProject(updateProject, this.props.history);
@@ -76,14 +77,14 @@ class UpdateProject extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h5 className="display-4 text-center">Update Project form</h5>
+              <h5 className="display-6 text-center">Update Project</h5>
               <hr />
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.projectName
+                      "is-invalid": errors.projectName,
                     })}
                     placeholder="Project Name"
                     name="projectName"
@@ -94,6 +95,7 @@ class UpdateProject extends Component {
                     <div className="invalid-feedback">{errors.projectName}</div>
                   )}
                 </div>
+                <br />
                 <div className="form-group">
                   <input
                     type="text"
@@ -105,10 +107,11 @@ class UpdateProject extends Component {
                     disabled
                   />
                 </div>
+                <br />
                 <div className="form-group">
                   <textarea
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.description
+                      "is-invalid": errors.description,
                     })}
                     placeholder="Project Description"
                     name="description"
@@ -119,6 +122,7 @@ class UpdateProject extends Component {
                     <div className="invalid-feedback">{errors.description}</div>
                   )}
                 </div>
+                <br />
                 <h6>Start Date</h6>
                 <div className="form-group">
                   <input
@@ -129,6 +133,7 @@ class UpdateProject extends Component {
                     onChange={this.onChange}
                   />
                 </div>
+                <br />
                 <h6>Estimated End Date</h6>
                 <div className="form-group">
                   <input
@@ -144,7 +149,15 @@ class UpdateProject extends Component {
                   type="submit"
                   className="btn btn-primary btn-block mt-4"
                 />
+                <i>&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                <Link
+                  to={`/dashboard/`}
+                  className="btn btn-primary btn-light mt-4"
+                >
+                  Cancel
+                </Link>
               </form>
+              <br />
             </div>
           </div>
         </div>
@@ -157,15 +170,14 @@ UpdateProject.propTypes = {
   getProject: PropTypes.func.isRequired,
   createProject: PropTypes.func.isRequired,
   project: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   project: state.project.project,
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { getProject, createProject }
-)(UpdateProject);
+export default connect(mapStateToProps, { getProject, createProject })(
+  UpdateProject
+);

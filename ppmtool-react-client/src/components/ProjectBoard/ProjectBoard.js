@@ -4,6 +4,7 @@ import Backlog from "./Backlog";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getBacklog } from "../../actions/backlogActions";
+import { Fragment } from "react";
 
 class ProjectBoard extends Component {
   //constructor to handle errors
@@ -61,14 +62,22 @@ class ProjectBoard extends Component {
     BoardContent = boardAlgorithm(errors, project_tasks);
 
     return (
-      <div className="container">
-        <Link to={`/addProjectTask/${id}`} className="btn btn-primary mb-3">
-          <i className="fas fa-plus-circle"> Create Project Task</i>
-        </Link>
-        <br />
+      <Fragment>
+        <div className="container">
+          <Link to={`/addProjectTask/${id}`} className="btn btn-primary mb-3">
+            <i className="fas fa-plus-circle"> Create Project Task</i>
+          </Link>
+        </div>
         <hr />
         {BoardContent}
-      </div>
+        <br />
+        <hr />
+        <div className="container">
+          <Link to={`/dashboard/`} className="btn btn-light">
+            Back to Dashboard
+          </Link>
+        </div>
+      </Fragment>
     );
   }
 }

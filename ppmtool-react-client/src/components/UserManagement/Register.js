@@ -55,8 +55,9 @@ class Register extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your Account</p>
+              <h4 className="display-6 text-center">Sign Up</h4>
+              <h4 className="lead text-center">Create your own Account</h4>
+              <br />
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
@@ -73,6 +74,7 @@ class Register extends Component {
                     <div className="invalid-feedback">{errors.fullName}</div>
                   )}
                 </div>
+                <br />
                 <div className="form-group">
                   <input
                     type="text"
@@ -88,6 +90,7 @@ class Register extends Component {
                     <div className="invalid-feedback">{errors.username}</div>
                   )}
                 </div>
+                <br />
                 <div className="form-group">
                   <input
                     type="password"
@@ -103,6 +106,7 @@ class Register extends Component {
                     <div className="invalid-feedback">{errors.password}</div>
                   )}
                 </div>
+                <br />
                 <div className="form-group">
                   <input
                     type="password"
