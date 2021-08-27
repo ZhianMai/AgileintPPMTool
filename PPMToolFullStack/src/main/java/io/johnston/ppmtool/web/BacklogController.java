@@ -25,7 +25,7 @@ public class BacklogController {
   private MapValidationErrorService mapValidationErrorService;
 
   @PostMapping("/{project_id}")
-  public ResponseEntity<?> addProjectTasktoBacklog(@Valid @RequestBody ProjectTask projectTask,
+  public ResponseEntity<?> addProjectTaskToBacklog(@Valid @RequestBody ProjectTask projectTask,
                                                    BindingResult result,
                                                    @PathVariable String project_id,
                                                    Principal principal) {

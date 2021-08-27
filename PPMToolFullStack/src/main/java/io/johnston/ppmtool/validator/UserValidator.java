@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class Uservalidator implements Validator {
+public class UserValidator implements Validator {
 
   private static final int PASSWORD_MIN_LENGTH = 6;
   @Override

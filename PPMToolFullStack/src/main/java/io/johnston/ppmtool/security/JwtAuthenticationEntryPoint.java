@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class JwtauthenticationEntryPoint implements AuthenticationEntryPoint {
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
   private static int ACCESS_DENIED = 401;
+
   @Override
   public void commence(HttpServletRequest httpServletRequest,
                        HttpServletResponse httpServletResponse,
