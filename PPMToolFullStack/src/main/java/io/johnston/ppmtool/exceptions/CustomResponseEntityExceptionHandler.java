@@ -44,4 +44,13 @@ public class CustomResponseEntityExceptionHandler
     return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
   }
 
+  @ExceptionHandler
+  public final ResponseEntity<Object> handleProjectDate (ProjectDateException ex,
+                                                         WebRequest request) {
+    ProjectDateExceptionResponse exceptionResponse =
+        new ProjectDateExceptionResponse(ex.getMessage());
+
+    return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+  }
+
 }

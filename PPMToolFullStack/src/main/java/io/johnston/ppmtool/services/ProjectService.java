@@ -3,6 +3,7 @@ package io.johnston.ppmtool.services;
 import io.johnston.ppmtool.domain.Backlog;
 import io.johnston.ppmtool.domain.Project;
 import io.johnston.ppmtool.domain.User;
+import io.johnston.ppmtool.exceptions.ProjectDateException;
 import io.johnston.ppmtool.exceptions.ProjectIdException;
 import io.johnston.ppmtool.exceptions.ProjectNotFoundException;
 import io.johnston.ppmtool.repositories.BacklogRepository;
@@ -36,6 +37,11 @@ public class ProjectService {
         throw new ProjectNotFoundException("Project with id: " +
             project.getProjectIdentifier() + " does not exist");
       }
+    }
+
+    if (project.getStart_date() != null && project.getEnd_date() != null &&
+       project.getEnd_date().compareTo(project.getStart_date()) < 0) {
+      throw new ProjectDateException("Project end date is before project start day.");
     }
 
     String tempProjectIdentifier = project.getProjectIdentifier().toUpperCase();

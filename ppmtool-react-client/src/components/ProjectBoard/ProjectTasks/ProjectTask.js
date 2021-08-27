@@ -8,7 +8,7 @@ class ProjectTask extends Component {
   onDeleteClick(backlog_id, pt_id) {
     this.props.deleteProjectTask(backlog_id, pt_id);
   }
-  
+
   render() {
     const { project_task } = this.props;
     let priorityString;
@@ -37,8 +37,11 @@ class ProjectTask extends Component {
         <div className="card-body bg-light">
           <h5 className="card-title">{project_task.summary}</h5>
           <p className="card-text text-truncate ">
-            {project_task.acceptanceCriteria}
+            {project_task.acceptanceCriteria
+              ? project_task.acceptanceCriteria
+              : "-"}
           </p>
+          <p>Due date: {project_task.dueDate ? project_task.dueDate : "TBA"}</p>
           <Link
             to={`/updateProjectTask/${project_task.projectIdentifier}/${project_task.projectSequence}`}
             className="btn btn-primary"
