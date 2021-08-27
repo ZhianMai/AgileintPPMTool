@@ -6,7 +6,7 @@ import io.johnston.ppmtool.payload.LoginRequest;
 import io.johnston.ppmtool.security.JwtTokenProvider;
 import io.johnston.ppmtool.services.UserService;
 import io.johnston.ppmtool.utils.MapValidationErrorService;
-import io.johnston.ppmtool.validator.UserValidator;
+import io.johnston.ppmtool.utils.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +30,6 @@ public class UserController {
 
   @Autowired
   UserService userService;
-
-  @Autowired
-  private UserValidator uservalidator;
 
   @Autowired
   private JwtTokenProvider jwtTokenProvider;
@@ -62,7 +59,7 @@ public class UserController {
 
   @PostMapping("/register")
   public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result) {
-    uservalidator.validate(user, result);
+    UserValidator.getValidator().validate(user, result);
 
     ResponseEntity<?> errorMap = MapValidationErrorService.mapValidationService(result);
 

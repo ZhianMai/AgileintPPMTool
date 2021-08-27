@@ -14,7 +14,7 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-  private static int ACCESS_DENIED = 401;
+  private static int ACCESS_DENIED_CODE = 401;
 
   @Override
   public void commence(HttpServletRequest httpServletRequest,
@@ -23,7 +23,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     InvalidLoginResponse loginResponse = new InvalidLoginResponse();
     String jsonLoginResponse = new Gson().toJson(loginResponse);
     httpServletResponse.setContentType("application/json");
-    httpServletResponse.setStatus(ACCESS_DENIED);
+    httpServletResponse.setStatus(ACCESS_DENIED_CODE);
     httpServletResponse.getWriter().print(jsonLoginResponse);
   }
 }

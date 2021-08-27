@@ -1,4 +1,4 @@
-package io.johnston.ppmtool.validator;
+package io.johnston.ppmtool.utils;
 
 import io.johnston.ppmtool.domain.User;
 import org.springframework.stereotype.Component;
