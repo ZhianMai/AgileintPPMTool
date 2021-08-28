@@ -63,6 +63,9 @@ class ProjectBoard extends Component {
 
     return (
       <Fragment>
+        <h1 className="alert alert-info text-center card-header" role="alert">
+          {id}
+        </h1>
         <div className="container">
           <Link to={`/addProjectTask/${id}`} className="btn btn-primary mb-3">
             <i className="fas fa-plus-circle"> Create Project Task</i>
