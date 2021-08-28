@@ -138,11 +138,16 @@ class UpdateProject extends Component {
                 <div className="form-group">
                   <input
                     type="date"
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": errors.end_date,
+                    })}
                     name="end_date"
                     value={this.state.end_date}
                     onChange={this.onChange}
                   />
+                  {errors.end_date && (
+                    <div className="invalid-feedback">{errors.end_date}</div>
+                  )}
                 </div>
 
                 <input

@@ -46,5 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://project-management-johnston.herokuapp.com/"
+  "proxy": "http://localhost:8080"
 }
