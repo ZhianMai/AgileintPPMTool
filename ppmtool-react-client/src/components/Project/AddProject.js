@@ -81,7 +81,7 @@ class AddProject extends Component {
                       className={classnames("form-control form-control-lg", {
                         "is-invalid": errors.projectIdentifier,
                       })}
-                      placeholder="Unique Project ID, 4 to 5 characters long."
+                      placeholder="Unique Project ID, 4 to 10 characters long."
                       name="projectIdentifier"
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}

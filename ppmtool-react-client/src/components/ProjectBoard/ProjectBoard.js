@@ -64,7 +64,7 @@ class ProjectBoard extends Component {
     return (
       <Fragment>
         <h1 className="alert alert-info text-center card-header" role="alert">
-          Project {this.props.location.state.projectName}
+          {this.props.location.state.projectName}
         </h1>
         <div className="container">
           <Link to={`/addProjectTask/${id}`} className="btn btn-primary mb-3">
