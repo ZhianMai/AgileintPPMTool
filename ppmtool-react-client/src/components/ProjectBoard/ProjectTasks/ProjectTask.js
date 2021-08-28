@@ -14,19 +14,21 @@ class ProjectTask extends Component {
     let priorityString;
     let priorityClass;
 
-    if (project_task.priority === 1) {
-      priorityClass = "bg-danger text-light";
-      priorityString = "HIGH";
-    }
-
-    if (project_task.priority === 2) {
-      priorityClass = "bg-warning text-light";
-      priorityString = "MEDIUM";
-    }
-
-    if (project_task.priority === 3) {
-      priorityClass = "bg-info text-light";
-      priorityString = "LOW";
+    switch (project_task.priority) {
+      case 1:
+        priorityClass = "bg-danger text-light";
+        priorityString = "HIGH";
+        break;
+      case 2:
+        priorityClass = "bg-warning text-light";
+        priorityString = "MEDIUM";
+        break;
+      case 3:
+        priorityClass = "bg-info text-light";
+        priorityString = "LOW";
+        break;
+      default:
+        break;
     }
 
     return (

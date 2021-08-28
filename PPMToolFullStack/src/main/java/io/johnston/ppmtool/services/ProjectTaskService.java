@@ -3,6 +3,7 @@ package io.johnston.ppmtool.services;
 import io.johnston.ppmtool.domain.Backlog;
 import io.johnston.ppmtool.domain.Project;
 import io.johnston.ppmtool.domain.ProjectTask;
+import io.johnston.ppmtool.exceptions.ProjectDateException;
 import io.johnston.ppmtool.exceptions.ProjectNotFoundException;
 import io.johnston.ppmtool.repositories.BacklogRepository;
 import io.johnston.ppmtool.repositories.ProjectRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,9 +29,16 @@ public class ProjectTaskService {
     // Project task to be added to a specific project, project != null
     try {
       // If project != null, then backlog != null
-      // Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
-      Backlog backlog =
-          projectService.findProjectByIdentifier(projectIdentifier, username).getBacklog();
+      Project project = projectService.findProjectByIdentifier(projectIdentifier, username);
+      Date projectBeginDate = project.getStart_date();
+      Date taskDueDate = projectTask.getDueDate();
+
+      if (projectBeginDate != null && taskDueDate != null &&
+          projectBeginDate.compareTo(taskDueDate) > 0) {
+        throw new ProjectDateException("The task due day is earlier than the project begin day." );
+      }
+
+      Backlog backlog = project.getBacklog();
       // Set the backlog to project
       projectTask.setBacklog(backlog);
 
@@ -54,7 +63,10 @@ public class ProjectTaskService {
       }
 
       return projectTaskRepository.save(projectTask);
-    } catch (Exception e) {
+    } catch (ProjectDateException e) {
+      throw new ProjectDateException(e.getMessage());
+    }
+    catch (Exception e) {
       throw new ProjectNotFoundException("Project not found");
     }
   }

@@ -27,7 +27,7 @@ class ProjectBoard extends Component {
   }
 
   render() {
-    const { id } = this.props.match.params;
+    const { id, projectName } = this.props.match.params;
     const { project_tasks } = this.props.backlog;
     const { errors } = this.state;
 
@@ -63,6 +63,9 @@ class ProjectBoard extends Component {
 
     return (
       <Fragment>
+        <h1 className="alert alert-info text-center card-header" role="alert">
+          Project {this.props.location.state.projectName}
+        </h1>
         <div className="container">
           <Link to={`/addProjectTask/${id}`} className="btn btn-primary mb-3">
             <i className="fas fa-plus-circle"> Create Project Task</i>
