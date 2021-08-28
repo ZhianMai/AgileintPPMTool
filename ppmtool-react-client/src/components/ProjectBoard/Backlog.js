@@ -24,6 +24,8 @@ class Backlog extends Component {
         case "DONE":
           doneItems.push(task);
           break;
+        default:
+          break;
       }
     });
 
